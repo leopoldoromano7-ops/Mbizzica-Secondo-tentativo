@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Paste;
 use App\Services\PasteFileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PasteController extends Controller
 {
@@ -51,4 +52,20 @@ class PasteController extends Controller
         // return redirect()->route('pastes.index');
         return redirect(route('pastes.create'))->with('status', 'Paste creato veramente bene figa!');
     }   
+
+    // sono stupido ma non so perche mi da rosso in teoria vVa nel disco public e prende il file nel percorso
+    public function download($id)
+{
+    // findOrFail metodo che cerca il paste, grazie documentazione e maledetta aulab. Cosi evito l'if
+    $paste = Paste::findOrFail($id);
+
+    return Storage::disk('public')->download($paste->file_path);
+}
+
+
+// non funge
+//if (!$paste) {
+//     abort(404);
+// }
+
 }

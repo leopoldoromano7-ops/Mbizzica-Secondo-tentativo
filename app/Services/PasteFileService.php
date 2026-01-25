@@ -16,7 +16,7 @@ class PasteFileService
     {   
         $filename = uniqid('paste_') . '.txt';
 
-        Storage::disk($this->disk)->put($this->directory . '/' . $filename, $content);
+        Storage::disk($this->disk)->put($this->directory . '/'. $filename, $content);
 
 
         return $this->directory . '/' . $filename;
