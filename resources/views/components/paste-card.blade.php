@@ -21,6 +21,11 @@
         </a>
     @endif
 
+    @if($paste->visibility == 1)
+        <p>Link condivisibile:</p>
+        <input type="text" value="{{ url('/paste/'.$paste->url) }}" readonly>
+    @endif
+
     {{-- metodo direttamente con dowload per via del lo sotrage link --}}
 {{-- @if($paste->file_path)
   <a href="{{ asset('storage/' . $paste->file_path) }}" download class="btn btn-warning">

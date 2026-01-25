@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pastes', function (Blueprint $table) {
+    
+        Schema::create('paste_user', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->integer('visibility')->default(0);
-            $table->string('url')->unique();
-            $table->string('file_path'); 
-            $table->string('attachment_path')->nullable();
+            $table->foreignId('paste_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pastes');
+        //
     }
 };

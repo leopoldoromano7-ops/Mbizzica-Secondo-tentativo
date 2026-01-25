@@ -23,3 +23,6 @@ Route::get('/settings/two-factor', [ProfileController::class, 'twoFactor'])->mid
 //Rotta per reimpostare password https://chatgpt.com/c/697641b2-79b0-8325-af08-1c7b0c52948f
 Route::get('/forgot-password', function () {return view('auth.forgot-password');})->middleware('guest')->name('password.request');
 Route::post('/forgot-password', [ProfileController::class, 'ResetPass'])->middleware('guest')->name('password.email');
+
+//url univocas
+Route::get('/paste/{url}', [PasteController::class, 'show'])->name('paste.show');

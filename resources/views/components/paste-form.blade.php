@@ -3,16 +3,33 @@
 
         <form method="POST" action="{{ route('paste.store') }}" enctype="multipart/form-data">
             @csrf
-                <div class="mb-3">
-                    <label for="title" class="form-label">Titolo</label>
-                    <input type="text" class="form-control" id="title" name="title">
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Titolo</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
+
+            <div class="mb-3">
+                <label for="content" class="form-label">Contenuto</label>
+                <textarea class="form-control" cols="30" rows="10" id="content" name="content"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Visibilità</label>
+                <div>
+                    <label>
+                        <input type="radio" name="visibility" value="0" checked>
+                        Pubblico
+                    </label>
+                    <label class="ms-3">
+                        <input type="radio" name="visibility" value="1">
+                        Privato
+                    </label>
                 </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">Contenuto</label>
-                    <textarea class="form-control" cols="30" rows="10" id="content" name="content"></textarea>
-                </div>
-                <input type="file" name="attachment">
-                <button type="submit" class="btn btn-primary">Salva</button>
+            </div>
+
+            <input type="file" name="attachment">
+            <button type="submit" class="btn btn-primary">Salva</button>
 
         </form>
 

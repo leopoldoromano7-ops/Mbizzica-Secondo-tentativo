@@ -25,5 +25,5 @@ class ProfileController extends Controller
         ? back()->with('status', 'Link inviato!')
         : back()->withErrors(['email' => 'Email non trovata.']);
     }
+
 }
-// USIAMO Il ternario giusto per far vedere eh
