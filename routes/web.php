@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PasteController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,8 @@ Route::get('/paste/download/{id}', [PasteController::class, 'download'])->name('
 
 
 //trotta per abbilitare l'autenticazione a due fattori
-Route::get('/settings/two-factor', function () {return view('settings.two-factor');})->middleware(['auth'])->name('settings.two-factor');
+
+Route::get('/settings/two-factor', [ProfileController::class, 'twoFactor'])->middleware(['auth'])->name('settings.two-factor');
+//Rotta per reimpostare password https://chatgpt.com/c/697641b2-79b0-8325-af08-1c7b0c52948f
+Route::get('/forgot-password', function () {return view('auth.forgot-password');})->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [ProfileController::class, 'ResetPass'])->middleware('guest')->name('password.email');
