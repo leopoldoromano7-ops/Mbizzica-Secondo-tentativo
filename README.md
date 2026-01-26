@@ -9,4 +9,5 @@
 8. creio auth con fortify quindi -> composer require Laravel/fortify -> php artisan fortify:install
 9. poi come sempre -> rotta ->  controller    ->  vista per le varie auth register-log in- confirm pass e two factor. modificato file config di fortify e provider per implemntare le citate oltre che poi l'ho fatto pure per il recupero password, si ringrazia la documentazione e sopratutto mailtrapper
 10. guerra per lo scope dei paste per cio che concerne la vibilita. Smadonnato sul paste controller e creato lo show, implementato la colonna users_id (make:mig... add...colum_to...table) ed implementati nei model la many to many, inizialmente la 1 to m ma poi mi sono accorto che altrimenti il link non fungeva se lo inviavo, insomma l'alopecia areata ringrazia.
-11. 
+11. creato CRUD mentre ero a lezione quindi non concentratissimo infatti ho avuto problemi con i file storati.
+12. reinvento un po perche' aiuto

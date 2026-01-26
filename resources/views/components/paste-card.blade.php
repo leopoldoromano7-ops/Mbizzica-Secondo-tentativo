@@ -26,6 +26,20 @@
         <input type="text" value="{{ url('/paste/'.$paste->url) }}" readonly>
     @endif
 
+    @if(auth()->check() && auth()->id() === $paste->user_id)
+        <a href="{{ route('paste.edit', $paste->id) }}" class="btn btn-primary">
+          <p>Modifica</p>
+        </a>
+      @endif
+
+    @if(auth()->check() && auth()->id() === $paste->user_id)
+        <form action="{{ route('paste.destroy', $paste->id) }}" method="POST"
+          onclick="return confirm('Sei sicuro di voler eliminare questa paste?');">
+          @csrf
+          @method('DELETE')
+        <button type="submit" class="btn btn-danger">Elimina</button>
+      </form>
+    @endif
     {{-- metodo direttamente con dowload per via del lo sotrage link --}}
 {{-- @if($paste->file_path)
   <a href="{{ asset('storage/' . $paste->file_path) }}" download class="btn btn-warning">

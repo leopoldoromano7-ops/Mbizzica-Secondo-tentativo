@@ -51,7 +51,7 @@ class User extends Authenticatable implements CanResetPasswordContract
     }
 
     public function pastes()
-{
-    return $this->belongsToMany(Paste::class, 'paste_user');
-}
+    {
+        return $this->belongsToMany(Paste::class, 'paste_user');
+    }
 }

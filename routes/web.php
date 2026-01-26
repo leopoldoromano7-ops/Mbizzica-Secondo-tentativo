@@ -13,6 +13,12 @@ Route::get('pastes/index', [PasteController::class, 'index'])->name('pastes.inde
 Route::get('pastes/create', [PasteController::class, 'create'])->name('pastes.create');
 Route::post('paste/store', [PasteController::class, 'store'])->name('paste.store');
 
+// crud per pste al sinfgolare per convenzione
+Route::get('/pastes/{id}/edit', [PasteController::class, 'edit'])->name('paste.edit');
+Route::put('/pastes/{id}', [PasteController::class, 'update'])->name('paste.update');
+Route::delete('/paste/{url}', [PasteController::class, 'destroy'])->name('paste.destroy'); 
+
+
 // [aste download route
 Route::get('/paste/download/{id}', [PasteController::class, 'download'])->name('paste.download');
 
