@@ -15,20 +15,30 @@
       <p class="card-text">Nessun allegato</p>
     @endif
 
+    @if($paste->tags->count())
+      <p>
+          <strong>Tags:</strong>
+          @foreach($paste->tags as $tag)
+              <span class="badge bg-secondary">{{ $tag->name }}</span>
+          @endforeach
+      </p>
+    @endif
+
+
       @if($paste->file_path)
         <a href="{{ route('paste.download', $paste->id) }}" class="btn btn-warning">
             Scarica file testo
         </a>
     @endif
 
-    @if($paste->visibility == 1)
+    @if($paste->visibility == 0 || $paste->visibility == 2)
         <p>Link condivisibile:</p>
         <input type="text" value="{{ url('/paste/'.$paste->url) }}" readonly>
     @endif
 
     @if(auth()->check() && auth()->id() === $paste->user_id)
         <a href="{{ route('paste.edit', $paste->id) }}" class="btn btn-primary">
-          <p>Modifica</p>
+          Modifica
         </a>
       @endif
 

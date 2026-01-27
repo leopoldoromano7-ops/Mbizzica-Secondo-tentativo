@@ -5,24 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Paste;
 use App\Models\User;
 use App\Services\PasteFileService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\Tag;
 
 class PasteController extends Controller
-{
-    public function index()
+{ //aggiunte request per il filtro
+    public function index(Request $request)
     {
         //solo se utente e' auth allore dagli id senno null
-        $userId = auth()->check() ? auth()->id() : null;
+        $userId =Auth::check() ? Auth::id() : null;
+        $tags = Tag::query()->orderBy('name')->get();
 
         //req del db
-        $pastes = Paste::where(function ($q) use ($userId) {
-            $q->where('visibility', 0)
-                ->orWhere('user_id', $userId);
-        })->latest()->paginate(10);
+        $pastes = Paste::query()
+            ->where(function ($q) use ($userId) {
+                $q->where('visibility', 0)
+                    ->orWhere('user_id', $userId);
+            });
+        // se non raggruppocome passa il filtro
+        if ($request->tag) {
+            $pastes->whereHas('tags', function ($q) use ($request) {
+                $q->where('tags.id', $request->tag);
+            });
+        }
+        //per titolo o contenuto
+        if ($request->q) {
+            $pastes->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->q . '%')
+                    ->orWhere('content', 'like', '%' . $request->q . '%');
+            });
+        }
+
+        $pastes = $pastes->latest()->paginate(10);
         // uso compact per creare una variabile che contenga tutta la collection di paste nella index
-        return view('pastes.index', compact('pastes'));
+        return view('pastes.index', compact('pastes', 'tags'));
     }
 
     public function create()
@@ -52,16 +71,20 @@ class PasteController extends Controller
 
         $url = Str::random(10);
 
-        Paste::create([
+        $paste = Paste::create([
+
             'title' => $request->title,
             'content' => $request->content,
             'file_path' => $path,
             'attachment_path' => $attachmentPath,
             'visibility' => $request->visibility,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'url' => $url,
         ]);
+        //miiii sembra di essere tornati a java
+        $tagIds = collect(explode(',', $request->tags ?? ''))->map(fn($t) => trim($t))->filter()->map(fn($t) => Tag::firstOrCreate(['name' => $t])->id)->toArray();
 
+        $paste->tags()->sync($tagIds);
         // ritorniamo alla view
         // return redirect()->route('pastes.index');
         return redirect(route('pastes.create'))->with('status', 'Paste creato veramente bene figa!');
@@ -73,12 +96,16 @@ class PasteController extends Controller
         // findOrFail metodo che cerca il paste, grazie documentazione e maledetta aulab. Cosi evito l'if
         $paste = Paste::findOrFail($id);
 
-        return Storage::disk('public')->download($paste->file_path);
+        return Storage::download($paste->file_path);
     }
 
     public function show($url)
     {
         $paste = Paste::where('url', $url)->firstOrFail();
+
+        if ($paste->visibility == 1 && Auth::id() !== $paste->user_id) {
+            abort(403);
+        }
 
         return view('pastes.show', compact('paste'));
     }
@@ -90,7 +117,7 @@ class PasteController extends Controller
     {
         $paste = Paste::findOrFail($pasteId);
 
-        if (auth()->id() !== $paste->user_id) {
+        if (Auth::id() !== $paste->user_id) {
             abort(403);
         }
 
@@ -105,7 +132,7 @@ class PasteController extends Controller
     {
         $paste = Paste::findOrFail($id);
 
-        if (auth()->id() !== $paste->user_id) {
+        if (Auth::id() !== $paste->user_id) {
             abort(403);
         }
 
@@ -118,7 +145,7 @@ class PasteController extends Controller
         $paste = Paste::findOrFail($id);
 
         // se e; authproprietareio
-        if (auth()->id() !== $paste->user_id) {
+        if (Auth::id() !== $paste->user_id) {
             abort(403);
         }
 
@@ -126,9 +153,13 @@ class PasteController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'visibility' => 'required|in:0,1,2',
-            'attachment' => 'nullable|file|max:20480'
+            'attachment' => 'nullable|file|max:20480',
+            'tags' => 'nullable|string'
         ]);
 
+        $tagIds = collect(explode(',', $request->tags ?? ''))->map(fn($t) => trim($t))->filter()->map(fn($t) => Tag::firstOrCreate(['name' => $t])->id)->toArray();
+
+        $paste->tags()->sync($tagIds);
         //file
         if ($data['content'] !== $paste->content) {
             $data['file_path'] = $fileService->storeFile($data['content']);
@@ -155,7 +186,10 @@ class PasteController extends Controller
 
         $paste->delete();
 
+        Storage::disk('public')->delete($paste->file_path);
+
         return redirect()->route('pastes.index');
+
     }
 }
 

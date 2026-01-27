@@ -17,15 +17,28 @@
             <div class="mb-3">
                 <label class="form-label">Visibilità</label>
                 <div>
-                    <label>
-                        <input type="radio" name="visibility" value="0" checked>
-                        Pubblico
-                    </label>
+                    
+                <label>
+                    <input type="radio" name="visibility" value="0" checked>
+                    Pubblico
+                </label>
+                <label class="ms-3">
+                    <input type="radio" name="visibility" value="2">
+                    NON elencato
+                </label>
+                    @auth
                     <label class="ms-3">
                         <input type="radio" name="visibility" value="1">
                         Privato
                     </label>
+                    @endauth
                 </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="tags" class="form-label">Tags</label>
+                <input type="text" class="form-control" id="tags" name="tags"
+                       value="{{ old('tags') }}">
             </div>
 
             <input type="file" name="attachment">

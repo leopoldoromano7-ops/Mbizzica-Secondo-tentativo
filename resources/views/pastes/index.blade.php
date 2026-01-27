@@ -7,11 +7,16 @@
                 </article>
             </section>
             <section class="row">
+
+                <x-paste-filter-form :tags="$tags" />
+
                 @foreach ($pastes as $paste)
                     <article class="col-12 col-md-3">
                         <x-paste-card :paste="$paste" />
                     </article>
                  @endforeach
+
+
             </section>
         </main>
 </x-layout>

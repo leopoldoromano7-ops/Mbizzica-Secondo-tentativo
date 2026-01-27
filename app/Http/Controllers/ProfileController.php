@@ -14,6 +14,11 @@ class ProfileController extends Controller
         return view('settings.two-factor');
     }
 
+    public function showForgotPasswordForm()
+{
+    return view('auth.forgot-password');
+}
+
     public function ResetPass(Request $request)
     {
 

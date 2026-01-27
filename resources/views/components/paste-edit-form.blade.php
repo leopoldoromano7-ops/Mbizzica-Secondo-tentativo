@@ -26,12 +26,23 @@
                         <input type="radio" name="visibility" value="1" {{ old('visibility', $paste->visibility) == 1 ? 'checked' : '' }}>
                         Privato
                     </label>
+                    <label class="ms-3">
+                        <input type="radio" name="visibility" value="2" {{ old('visibility', $paste->visibility) == 2 ? 'checked' : '' }}>
+                        Non elencato
+                    </label>
                 </div>
+            </div>
+            
+            {{-- taggs --}}
+            <div class="mb-3">
+                <label for="tags" class="form-label">Tags</label>
+                <input type="text" class="form-control" id="tags" name="tags"
+                       value="{{ old('tags', $paste->tags->pluck('name')->implode(', ')) }}">
             </div>
 
             <input type="file" name="attachment">
-            <button type="submit" class="btn btn-primary">Aggiorna</button>
 
+            <button type="submit" class="btn btn-primary">Aggiorna</button>
         </form>
 
     </article>
