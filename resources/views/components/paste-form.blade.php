@@ -42,7 +42,7 @@
             </div>
 
             <input type="file" name="attachment">
-            <button type="submit" class="btn btn-primary">Salva</button>
+            <button type="submit" class="btn btn-primary">Invia</button>
 
         </form>
 

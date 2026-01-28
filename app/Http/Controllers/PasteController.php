@@ -19,19 +19,20 @@ class PasteController extends Controller
         $userId = Auth::check() ? Auth::id() : null;
         $tags = Tag::query()->orderBy('name')->get();
 
-        //req del db
+        //req del db on query
         $pastes = Paste::query()
             ->where(function ($q) use ($userId) {
-                $q->where('visibility', 0)
-                    ->orWhere('user_id', $userId);
+                $q->where('visibility', 0) ->orWhere('user_id', $userId);
             });
+
         // se non raggruppocome passa il filtro
         if ($request->tag) {
             $pastes->whereHas('tags', function ($q) use ($request) {
                 $q->where('tags.id', $request->tag);
             });
         }
-        //per titolo o contenuto
+
+        //per titolo o contenuto todo fetch o livewere
         if ($request->q) {
             $pastes->where(function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->q . '%')

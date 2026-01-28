@@ -9,9 +9,9 @@
     <title>Mbizzica</title>
 
 </head>
-<body>
-    <x-navbar />
-    {{ $slot}}
-    <x-footer />
-</body>
+    <body>
+        <x-navbar />
+        {{ $slot}}
+        <x-footer />
+    </body>
 </html>
