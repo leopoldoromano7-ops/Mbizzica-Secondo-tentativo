@@ -16,7 +16,7 @@ class PasteController extends Controller
     public function index(Request $request)
     {
         //solo se utente e' auth allore dagli id senno null
-        $userId =Auth::check() ? Auth::id() : null;
+        $userId = Auth::check() ? Auth::id() : null;
         $tags = Tag::query()->orderBy('name')->get();
 
         //req del db
@@ -96,7 +96,7 @@ class PasteController extends Controller
         // findOrFail metodo che cerca il paste, grazie documentazione e maledetta aulab. Cosi evito l'if
         $paste = Paste::findOrFail($id);
 
-        return Storage::download($paste->file_path);
+        return Storage::disk('public')->download($paste->file_path);
     }
 
     public function show($url)
@@ -189,7 +189,22 @@ class PasteController extends Controller
         Storage::disk('public')->delete($paste->file_path);
 
         return redirect()->route('pastes.index');
+    }
 
+    public function storeComment(Request $request, $pasteId)
+    {
+        $request->validate([
+            'content' => 'required|string|max:1000',
+        ]);
+
+        $paste = Paste::findOrFail($pasteId);
+
+        $paste->comments()->create([
+            'user_id' => Auth::id(),
+            'content' => $request->content,
+        ]);
+
+        return back()->with('status', 'Commento aggiunto!');
     }
 }
 

@@ -1,0 +1,192 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column; 
+}
+
+body {
+  overflow-x: hidden;
+  height: 100%;
+}
+
+main {
+  padding-top: 30px; 
+  flex: 1;
+}
+
+section {
+  padding-top: 70px;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.row-custom{
+  min-height: calc(100vh - 30px - 60px); 
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1762600749688-8dfc960d86c5?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+    }
+    
+
+.container-fluid {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+*   {
+  font-family: "Mountains of Christmas", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.card-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; 
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto 1.5rem; 
+}
+
+.card-horizontal img,
+.card-horizontal .file-placeholder {
+  width: 40%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.card-horizontal .file-placeholder {
+  min-height: 200px;
+}
+
+.card-horizontal .file-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.card-horizontal .card-content {
+  width: 60%;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-horizontal .card-content h5 {
+  margin: 0 0 0.5rem;
+}
+
+.card-horizontal .card-content p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.card-horizontal .btn-group {
+  flex: 1 1 auto; 
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.card-horizontal input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.card-comments {
+    max-width: 100%;       
+    overflow-wrap: break-word;
+}
+
+.card-comments .comment {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;            
+    box-sizing: border-box;
+}
+
+
+.card-comments form .input-group {
+    display: flex;
+    flex-wrap: wrap;       
+    gap: 0.25rem;
+}
+
+
+.card-comments form input[type="text"] {
+    flex: 1 1 0;              
+    max-width: 100%;           
+    box-sizing: border-box;
+}
+
+.card-comments form button {
+    flex-shrink: 0;            
+}
+
+.btn-custom{
+  width: 120px;
+}
+
+.badge-custom {
+    background: #eee;
+    color: #555;
+    font-weight: 500;
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.img-custom{
+  height: 300px;
+}
+
+.form-inline {
+    display: inline;
+}
+
+footer {
+  position: fixed;    
+  bottom: 0;          
+  left: 0;           
+  width: 100%;       
+  height: 60px;       
+  background: #333;   
+  color: #fff;        
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;  
+}

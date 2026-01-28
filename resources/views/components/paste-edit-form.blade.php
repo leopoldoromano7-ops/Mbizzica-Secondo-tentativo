@@ -1,5 +1,5 @@
-<section class="row justify-content-center">
-    <article class="col-12 col-md-8 mt-3">
+<section class="row justify-content-center mt-5">
+    <article class="col-12 col-md-8 mt-5">
 
         <form method="POST" action="{{ route('paste.update', $paste->id) }}" enctype="multipart/form-data">
             @csrf

@@ -16,7 +16,6 @@
                     </article>
                  @endforeach
 
-
             </section>
         </main>
 </x-layout>

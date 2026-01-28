@@ -18,3 +18,8 @@
 17. testato un po e mannaggia non avevo messo le rotte giuste nel middlewere, poi avevo messo funzioni nelle rotte male male. ho finito la many to many, ho corretto alcune cose rotte nel paste controller non so perche' ma avevo sbagliato sintassi varie.
 18. rivisto le blade
 19. to do: l'email degli eventi!
+20. allora ho fatto la newsletter per gli eventi ma... se si intende fare una notifica viA Email ogni volta che viene boh svolto une vento, come il fatto che ha ricevuto un ommento, funzione che non so se riesco ad implemntare, dovrei fare come sempre: route/ creare controller specifco/ view. e modificARE IL CONTROLLER CON AUTH->NOtifi... crredo dopo ci provo
+21. todo: prima dei commenti cerchiamo di farla per post creato poi se resta tempo vedo.
+22. fatto un po di frontend vado con i commenti quindi solita roba model/migrazione/route/controller e view
+23. i commenti sembrano funzionare ma la logica e' ok solo non so perche' e' un pugno in un occccchio! devo fare piu carino perche' si capisce poco
+24. ESERCITAZIONEIN AULAB NON PUEDO CONTINUAR
