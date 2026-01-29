@@ -13,7 +13,7 @@ class PasteFileService
     // Metodo per salvare il file, mai fatto spero funga
     //genero un unico id (filename) e lo salvo nel disk e   nella directory specificata
     public function storeFile(string $content): string
-    {
+    {  //aggiungo estension 
         $filename = uniqid('paste_') . '.txt';
 
         Storage::disk($this->disk)->put($this->directory . '/' . $filename, $content);
